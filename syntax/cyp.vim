@@ -2,8 +2,8 @@
 "   Language: Check Your Proof
 "   Maintainer: HE7086 <https://github.com/HE7086>
 "
-" Last Modified: Mon 25 Nov 2019 09:35:05 PM CET
-"   Version: 0.1
+" Last Modified: Mon 25 Nov 2019 11:37:40 PM CET
+"   Version: 0.1.1
 
 "if exists("b:current_syntax")
 "    finish
