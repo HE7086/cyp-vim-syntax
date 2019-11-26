@@ -12,7 +12,8 @@ endif
 syntax sync fromstart
 
 syntax keyword cypKeyword       Proof Case QED Assumption
-syntax keyword cypTheory        axiom goal IH data
+syntax keyword cypKeyword       on with
+syntax keyword cypTheory        axiom goal IH data declare_sym
 syntax match   cypProof         /by induction/
 syntax match   cypProof         /by extensionality/
 syntax match   cypProof         /by case analysis/
@@ -21,8 +22,12 @@ syntax keyword cypLemma         Lemma
 syntax keyword cypBool          True False
 syntax match cypToShow          /To show/
 
+syntax match cypComment         /^--.*/
 
-syntax match cypReference       /(by .\{-})/
+syntax keyword cypTypes         Int Integer Bool Char String List
+
+
+syntax match cypReference       /\((\)\@\<\=by .\{-}\()\)\@\=/
 syntax match cypEqualEtc        /\.=\./
 syntax match cypEqualEtc        /</
 syntax match cypEqualEtc        />/
@@ -30,7 +35,7 @@ syntax match cypEqualEtc        /<=/
 syntax match cypEqualEtc        />=/
 syntax match cypArrow           /==>/
 syntax match cypArrow           /<==/
-syntax match cypCusLemma        /\(Lemma\)@<=.\{-}\(:\)@=/
+syntax match cypCusLemma        /\(Lemma\)\@\<\=.\{-}\(:\)\@\=/
 
 
 " syntax region cypProofs         start="Proof" end="QED"
@@ -41,16 +46,33 @@ else
     command -nargs=+ HiLink hi def link <args>
 endif
 
-HiLink cypKeyword       Statement
-HiLink cypToShow        Statement
-HiLink cypTheory        Identifier
-HiLink cypProof         Type
-HiLink cypLemma         Include
-HiLink cypCusLemma      Include
-HiLink cypEqualEtc      Operator
-HiLink cypReference     Keyword
-HiLink cypBool          Boolean
-HiLink cypArrow         Conditional
+if !exists("g:cyp_syntax_colorscheme")
+    HiLink cypKeyword       Statement
+    HiLink cypToShow        Statement
+    HiLink cypTheory        Identifier
+    HiLink cypProof         Type
+    HiLink cypLemma         Include
+    HiLink cypCusLemma      Include
+    HiLink cypEqualEtc      Operator
+    HiLink cypReference     Keyword
+    HiLink cypBool          Boolean
+    HiLink cypArrow         Conditional
+    HiLink cypComment       Comment
+    HiLink cypTypes         Statement
+else
+    HiLink cypKeyword       Keyword
+    HiLink cypToShow        Keyword
+    HiLink cypTheory        Identifier
+    HiLink cypProof         Type
+    HiLink cypLemma         Include
+    HiLink cypCusLemma      Include
+    HiLink cypEqualEtc      Operator
+    HiLink cypReference     Function
+    HiLink cypBool          Boolean
+    HiLink cypArrow         Conditional
+    HiLink cypComment       Comment
+    HiLink cypTypes         Type
+endif
 
 delcommand HiLink
 let b:current_syntax = "cyp"
