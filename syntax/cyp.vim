@@ -27,7 +27,11 @@ syntax match cypComment         /^--.*/
 syntax keyword cypTypes         Int Integer Bool Char String List
 
 
-syntax match cypReference       /\((\)\@\<\=by .\{-}\()\)\@\=/
+if !exists("g:cyp_syntax_referbrace")
+    syntax match cypReference       /(by .\{-})/
+else
+    syntax match cypReference       /\((\)\@\<\=by .\{-}\()\)\@\=/
+endif
 syntax match cypEqualEtc        /\.=\./
 syntax match cypEqualEtc        /</
 syntax match cypEqualEtc        />/
@@ -38,7 +42,7 @@ syntax match cypArrow           /<==/
 syntax match cypCusLemma        /\(Lemma\)\@\<\=.\{-}\(:\)\@\=/
 
 
-" syntax region cypProofs         start="Proof" end="QED"
+" syntax region cypProofs         start="Proof" end="QED" skip="Case"
 
 if version < 508
     command -nargs=+ HiLink hi link <args>
@@ -52,7 +56,7 @@ if !exists("g:cyp_syntax_colorscheme")
     HiLink cypTheory        Identifier
     HiLink cypProof         Type
     HiLink cypLemma         Include
-    HiLink cypCusLemma      Include
+    HiLink cypCusLemma      Keyword
     HiLink cypEqualEtc      Operator
     HiLink cypReference     Keyword
     HiLink cypBool          Boolean
