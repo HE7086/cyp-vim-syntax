@@ -11,11 +11,14 @@ endif
 
 syntax sync fromstart
 
-syntax keyword cypKeyword       Proof Case QED
-syntax keyword cypTheory        axiom goal IH
-syntax keyword cypProof         induction
-syntax match   cypProof         /case analysis/
+syntax keyword cypKeyword       Proof Case QED Assumption
+syntax keyword cypTheory        axiom goal IH data
+syntax match   cypProof         /by induction/
+syntax match   cypProof         /by extensionality/
+syntax match   cypProof         /by case analysis/
+syntax match   cypProof         /by cheating/
 syntax keyword cypLemma         Lemma
+syntax keyword cypBool          True False
 
 
 syntax match cypReference       /(by .\{-})/
@@ -40,6 +43,7 @@ HiLink cypLemma         Include
 HiLink cypCusLemma      Include
 HiLink cypDotEquals     Operator
 HiLink cypReference     Keyword
+HiLink cypBool          Boolean
 
 delcommand HiLink
 let b:current_syntax = "cyp"
