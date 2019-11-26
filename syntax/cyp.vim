@@ -2,7 +2,7 @@
 "   Language: Check Your Proof
 "   Maintainer: HE7086 <https://github.com/HE7086>
 "
-" Last Modified: Tue 26 Nov 2019 12:34:08 PM CET
+" Last Modified: Tue 26 Nov 2019 06:32:14 PM CET
 "   Version: 0.1.2
 
 if exists("b:current_syntax")
@@ -22,7 +22,7 @@ syntax keyword cypLemma         Lemma
 syntax keyword cypBool          True False
 syntax match cypToShow          /To show/
 
-syntax match cypComment         /^--.*/
+syntax match cypComment         /^\s*--.*/
 
 syntax keyword cypTypes         Int Integer Bool Char String List
 
