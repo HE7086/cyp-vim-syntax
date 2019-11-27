@@ -8,7 +8,7 @@ Yet Another Syntax Highlighter for `Check Your Proof` on Vim/Neovim
 Plug 'HE7086/cyp-vim-syntax'
 ```
 
-* Manually installation  
+* Manually install 
     - copy the syntax file to your vim runtime directory  
       which is likely in `~/.vim` for vim or `~/.config/nvim` for neovim
     - add this to your `vimrc`
@@ -18,7 +18,7 @@ Plug 'HE7086/cyp-vim-syntax'
 
 ### Customization
 In order to change the behaviour of the syntax, you need to put following line in your `vimrc` accordingly
-* Make the braces `()` with `by something` not being colored
+* Don't color the braces in a `by` reference
 ```
 let g:cyp_syntax_referbrace=1
 ```
@@ -26,3 +26,6 @@ let g:cyp_syntax_referbrace=1
 ```
 let g:cyp_colorscheme=1
 ```
+
+### Reference
+* [cyp](https://github.com/noschinl/cyp)
