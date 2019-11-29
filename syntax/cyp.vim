@@ -30,7 +30,7 @@ syntax keyword cypTypes         Int Integer Bool Char String List
 if !exists("g:cyp_syntax_referbrace")
     syntax match cypReference       /(by .\{-})/
 else
-    syntax match cypReference       /\((\)\@\<\=by .\{-}\()\)\@\=/
+    syntax match cypReference       /\((\s*\)\@\<\=by .\{-}\(\s*)\)\@\=/
 endif
 syntax match cypEqualEtc        /\.=\./
 syntax match cypEqualEtc        /</
