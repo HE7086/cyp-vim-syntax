@@ -5,7 +5,7 @@ let b:did_indent=1
 
 setlocal indentexpr=GetCYPIndent()
 setlocal autoindent nolisp nosmartindent
-setlocal indentkeys+==Proof,=QED,=Case,=Assumption
+setlocal indentkeys+==Proof,=QED,=Case
 
 " avoid multiple definitions
 if exists("*GetCYPIndent")
@@ -74,16 +74,38 @@ function GetCYPIndentIntern()
         return ind + s:sw()
     endif
 
+    if cur_text =~ '^\s*QED'
+        return FindLastProof()
+    endif
+
     " in a block of Proof or Case
     if prev_text =~ '^\s*\(Proof\|Case\)'
-        let ind += s:sw()
+        return ind + s:sw()
     endif
 
-    if cur_text =~ '^\s*QED'
-        let ind -= s:sw()
-    endif
 
     return ind
+endfunction
+
+function FindLastProof()
+    let count = 0
+    let lnum = v:lnum
+    while count <= 0 && lnum > 0
+        let lnum = prevnonblank(lnum - 1)
+        let prev_text = getline(lnum)
+
+        if prev_text =~ '^\s*Proof'
+            let count += 1
+        elseif prev_text =~ '^\s*QED'
+            let count -= 1
+        endif
+    endwhile
+
+    if lnum <= 0
+        throw 'syntax error'
+    endif
+
+    return indent(lnum)
 endfunction
 
 function GetCYPIndent()
