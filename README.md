@@ -30,6 +30,11 @@ let g:cyp_syntax_referbrace=1
 ```
 let g:cyp_colorscheme=1
 ```
+* Control how many spaces should be indented at a time (defaults to your shiftwidth or tabstop settings)
+```
+" set indented spaces to 2
+let g:cyp_shiftwidth=2
+```
 
 ### Reference
 * [cyp](https://github.com/noschinl/cyp)
