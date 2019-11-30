@@ -32,17 +32,17 @@ endif
 
 let s:keyword = '\((\s*by\s*\)\@\<\!\(Proof\|Case\|QED\|Assumption\|Lemma\|To\sshow\|IH\)\(\s*)\)\@\!' 
 
-function GetCYPIndentIntern()
-    let prev_num = prevnonblank(v:lnum - 1)
+function GetCYPIndentIntern(line)
+    let prev_num = prevnonblank(a:line - 1)
 
     " start of the file should not be indented
     if prev_num == 0
         return 0
     endif
 
-    let next_num = nextnonblank(v:lnum + 1)
+    let next_num = nextnonblank(a:line + 1)
 
-    let cur_text = getline(v:lnum)
+    let cur_text = getline(a:line)
     let prev_text = getline(prev_num)
     let next_text = getline(next_num)
 
@@ -50,7 +50,9 @@ function GetCYPIndentIntern()
     if cur_text !~ s:keyword && cur_text !~ '\.=\.'
         " next is a 'by reference'
         if next_text =~ '^\s*(by.*)\s*\.=\..*'
-            return match(next_text, '\.=\.') + 4
+            let temp = indent(next_num)
+            let should = GetCYPIndentIntern(next_num)
+            return should - temp + match(next_text, '\.=\.') + 4
         endif
     endif
 
@@ -75,7 +77,7 @@ function GetCYPIndentIntern()
     endif
 
     if cur_text =~ '^\s*QED'
-        return FindLastProof()
+        return FindLastProof(a:line)
     endif
 
     " in a block of Proof or Case
@@ -87,9 +89,9 @@ function GetCYPIndentIntern()
     return ind
 endfunction
 
-function FindLastProof()
+function FindLastProof(line)
     let count = 0
-    let lnum = v:lnum
+    let lnum = a:line
     while count <= 0 && lnum > 0
         let lnum = prevnonblank(lnum - 1)
         let prev_text = getline(lnum)
@@ -112,7 +114,7 @@ function GetCYPIndent()
     let ignorecase_save = &ignorecase
     try
         let &ignorecase = 0
-        return GetCYPIndentIntern()
+        return GetCYPIndentIntern(v:lnum)
     finally
         let &ignorecase = ignorecase_save
     endtry
