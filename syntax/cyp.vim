@@ -13,6 +13,7 @@ syntax sync fromstart
 
 syntax keyword cypKeyword       Proof Case QED Assumption
 syntax keyword cypKeyword       on with
+syntax keyword cypIfThEls       if then else
 syntax keyword cypTheory        axiom goal IH data declare_sym
 syntax match   cypProof         /by induction/
 syntax match   cypProof         /by extensionality/
@@ -63,6 +64,7 @@ if !exists("g:cyp_syntax_colorscheme")
     HiLink cypArrow         Conditional
     HiLink cypComment       Comment
     HiLink cypTypes         Statement
+    HiLink cypIfThEls       Conditional
 else
     HiLink cypKeyword       Keyword
     HiLink cypToShow        Keyword
@@ -76,6 +78,7 @@ else
     HiLink cypArrow         Conditional
     HiLink cypComment       Comment
     HiLink cypTypes         Type
+    HiLink cypIfThEls       Conditional
 endif
 
 delcommand HiLink
