@@ -2,7 +2,7 @@
 "   Language: Check Your Proof
 "   Maintainer: HE7086 <https://github.com/HE7086>
 "
-" Last Modified: Tue 26 Nov 2019 06:32:14 PM CET
+" Last Modified: Fri 04 Dec 2020 11:25:39 PM CET
 "   Version: 0.1.2
 
 if exists("b:current_syntax")
@@ -19,21 +19,22 @@ syntax match   cypTheory        /\(\s*\)\@\<\=IH.\{-}\(:\)\@\=/
 syntax match   cypProof         /by induction/
 syntax match   cypProof         /by extensionality/
 syntax match   cypProof         /by case analysis/
+syntax match   cypProof         /by computation induction/
 syntax match   cypProof         /by cheating/
 syntax keyword cypLemma         Lemma
 syntax keyword cypBool          True False
 syntax match cypToShow          /To show\(\s*:\)\@\=/
 
-syntax match cypComment         /^\s*--.*/
+syntax match cypComment         /\(.\{-}\)\@\<\=--.*/
 
 syntax keyword cypTypes         Int Integer Bool Char String List
 
 
 if !exists("g:cyp_syntax_referbrace")
-    syntax match cypReference       /(by \(def\)\?/
-    syntax match cypReference       /\((by \(def\)\?.\{-}\)\@\<\=)\(\s*\.=\.\)\@\=/
+    syntax match cypReference       /(by \(def\|IH.\{-})\|Assumption\)\?/
+    syntax match cypReference       /\((by \(def\|IH.\{-}\|Assumption\)\?.\{-}\)\@\<\=)\(\s*\.=\.\)\@\=/
 else
-    syntax match cypReference       /\((\)\@\<\=by \(def\)\?/
+    syntax match cypReference       /\((\)\@\<\=by \(def\|IH.\{-}\|Assumption\)\?/
 endif
 
 syntax match cypEqualEtc        /\.=\./
