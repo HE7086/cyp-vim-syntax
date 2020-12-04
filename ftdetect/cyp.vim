@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.cprf,*.cthy setfiletype cyp
+autocmd BufNewFile,BufRead *.cprf,*.cthy,cprf,cthy setfiletype cyp
